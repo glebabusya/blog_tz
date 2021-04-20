@@ -13,6 +13,10 @@ class Post(models.Model):
         return self.title
 
     def upvote(self, user):
+        """
+        Method for upvote posts. User must be authenticated
+        """
+        self.upvote_amount = Upvote.objects.filter(post=self).count()
         try:
             Upvote.objects.get(user=user, vote=self)
             return None
@@ -20,10 +24,10 @@ class Post(models.Model):
             try:
                 vote = Upvote(user=user, post=self)
                 vote.save()
+                self.upvote_amount += 1
+                self.save()
             except IntegrityError:
                 return None
-            self.upvote_amount += 1
-            self.save()
 
 
 class Upvote(models.Model):
@@ -32,3 +36,11 @@ class Upvote(models.Model):
 
     class Meta:
         unique_together = ('user', 'post')
+
+
+class DeleteUpvote(models.Model):
+    """
+    This model is needed to delete upvote every 24 hours.
+    This is a crutch, you need to use Celery...
+    """
+    time = models.DateTimeField()
