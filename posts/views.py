@@ -1,10 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from rest_framework import status
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.response import Response
 from . import models, serializers, permissions
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
-from django.contrib.auth.models import User
+from rest_framework.decorators import api_view
 
 
 class PostListAPIView(ListCreateAPIView):
@@ -27,3 +27,12 @@ class PostDetailAPIView(RetrieveUpdateDestroyAPIView):
     queryset = models.Post.objects.all()
     serializer_class = serializers.PostSerializer
     permission_classes = [IsAuthenticatedOrReadOnly, permissions.IsAuthorOrReadOnly]
+
+
+def upvote(request, pk):
+    try:
+        post = models.Post.objects.get(pk=pk)
+        post.upvote(request.user)
+        return redirect('post_detail', pk)
+    except models.Post.DoesNotExist:
+        return redirect('post_detail', pk)

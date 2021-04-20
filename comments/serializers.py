@@ -7,11 +7,12 @@ from . import models
 class CommentSerializer(serializers.ModelSerializer):
     author = serializers.StringRelatedField()
     post = serializers.HyperlinkedRelatedField(view_name='post_detail', read_only=True)
+    link = serializers.HyperlinkedIdentityField(view_name='comment_detail')
 
     class Meta:
         model = models.Comment
         fields = [
-            'content', 'author', 'post', 'creation_date'
+            'content', 'author', 'post', 'creation_date', 'link'
         ]
 
 
