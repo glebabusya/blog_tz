@@ -7,7 +7,7 @@ class Post(models.Model):
     creation_date = models.DateTimeField(auto_now_add=True)
     upvote_amount = models.IntegerField(default=0)
     content = models.TextField()
-    author = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name='posts')
+    author = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name="posts")
 
     def __str__(self):
         return self.title
@@ -31,11 +31,11 @@ class Post(models.Model):
 
 
 class Upvote(models.Model):
-    user = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name='upvote')
-    post = models.ForeignKey(to=Post, related_name='upvotes', on_delete=models.CASCADE)
+    user = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name="upvote")
+    post = models.ForeignKey(to=Post, related_name="upvotes", on_delete=models.CASCADE)
 
     class Meta:
-        unique_together = ('user', 'post')
+        unique_together = ("user", "post")
 
 
 class DeleteUpvote(models.Model):
@@ -43,4 +43,5 @@ class DeleteUpvote(models.Model):
     This model is needed to delete upvote every 24 hours.
     This is a crutch, you need to use Celery...
     """
+
     time = models.DateTimeField()

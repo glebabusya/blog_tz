@@ -5,7 +5,11 @@ from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIV
 from rest_framework.response import Response
 from . import models, serializers, permissions
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
-from rest_framework.decorators import api_view, authentication_classes, permission_classes
+from rest_framework.decorators import (
+    api_view,
+    authentication_classes,
+    permission_classes,
+)
 
 from .utils import time_check
 
@@ -27,11 +31,11 @@ class PostListAPIView(ListCreateAPIView):
         serializer = serializers.PostSerializer(data=request.data)
         serializer.is_valid()
         data = serializer.validated_data
-        post = models.Post(title=data['title'], content=data['content'], author=request.user)
-        post.save()
-        return Response(
-            status=status.HTTP_201_CREATED
+        post = models.Post(
+            title=data["title"], content=data["content"], author=request.user
         )
+        post.save()
+        return Response(status=status.HTTP_201_CREATED)
 
 
 class PostDetailAPIView(RetrieveUpdateDestroyAPIView):
@@ -52,7 +56,7 @@ class PostDetailAPIView(RetrieveUpdateDestroyAPIView):
         return super(PostDetailAPIView, self).delete(request, *args, **kwargs)
 
 
-@api_view(['GET'])
+@api_view(["GET"])
 @authentication_classes([SessionAuthentication, BasicAuthentication])
 @permission_classes([IsAuthenticated])
 def upvote(request, pk):
@@ -60,6 +64,6 @@ def upvote(request, pk):
     try:
         post = models.Post.objects.get(pk=pk)
         post.upvote(request.user)
-        return redirect('post_detail', pk)
+        return redirect("post_detail", pk)
     except models.Post.DoesNotExist:
-        return redirect('post_detail', pk)
+        return redirect("post_detail", pk)

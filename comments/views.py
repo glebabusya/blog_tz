@@ -1,6 +1,10 @@
 from django.shortcuts import render
 from rest_framework import status
-from rest_framework.generics import ListAPIView, RetrieveUpdateDestroyAPIView, CreateAPIView
+from rest_framework.generics import (
+    ListAPIView,
+    RetrieveUpdateDestroyAPIView,
+    CreateAPIView,
+)
 from rest_framework.response import Response
 from posts.permissions import IsAuthorOrReadOnly
 from posts.utils import time_check
@@ -39,6 +43,7 @@ class CommentCreateAPIView(CreateAPIView):
     """
     Comment creation api view
     """
+
     queryset = models.Comment.objects.all()
     serializer_class = serializers.CommentCreateSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
@@ -51,8 +56,8 @@ class CommentCreateAPIView(CreateAPIView):
         serializer = serializers.CommentCreateSerializer(data=request.data)
         serializer.is_valid()
         data = serializer.validated_data
-        comment = models.Comment(content=data['content'], author=request.user, post=data['post'])
-        comment.save()
-        return Response(
-            status=status.HTTP_201_CREATED
+        comment = models.Comment(
+            content=data["content"], author=request.user, post=data["post"]
         )
+        comment.save()
+        return Response(status=status.HTTP_201_CREATED)

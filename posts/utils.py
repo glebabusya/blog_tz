@@ -19,5 +19,7 @@ def time_check():
     t_delta = (now - delete_time).total_seconds()
     if t_delta >= 86400:
         delete_upvotes()
-        delete_time = datetime.datetime(year=now.year, month=now.month, day=now.day, hour=0, minute=0, second=1)
+        delete_time = datetime.datetime(
+            year=now.year, month=now.month, day=now.day, hour=0, minute=0, second=1
+        )
         models.DeleteUpvote(time=delete_time).save()

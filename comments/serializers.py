@@ -6,22 +6,20 @@ from . import models
 
 class CommentSerializer(serializers.ModelSerializer):
     author = serializers.StringRelatedField()
-    post = serializers.HyperlinkedRelatedField(view_name='post_detail', read_only=True)
-    link = serializers.HyperlinkedIdentityField(view_name='comment_detail')
+    post = serializers.HyperlinkedRelatedField(view_name="post_detail", read_only=True)
+    link = serializers.HyperlinkedIdentityField(view_name="comment_detail")
 
     class Meta:
         model = models.Comment
-        fields = [
-            'content', 'author', 'post', 'creation_date', 'link'
-        ]
+        fields = ["content", "author", "post", "creation_date", "link"]
 
 
 class CommentCreateSerializer(serializers.ModelSerializer):
     author = serializers.StringRelatedField(read_only=True)
-    post = serializers.PrimaryKeyRelatedField(queryset=Post.objects.all(), write_only=True)
+    post = serializers.PrimaryKeyRelatedField(
+        queryset=Post.objects.all(), write_only=True
+    )
 
     class Meta:
         model = models.Comment
-        fields = [
-            'content', 'author', 'post', 'creation_date'
-        ]
+        fields = ["content", "author", "post", "creation_date"]
