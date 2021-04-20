@@ -15,3 +15,6 @@ class Post(models.Model):
         """
         self.upvote_amount += 1
         self.save()
+
+    def __str__(self):
+        return self.title
