@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  web:
+  django:
     build: .
     container_name: blog_tz
     command: gunicorn blog_tz.wsgi
@@ -23,7 +23,7 @@ services:
     links:
       - redis
     depends_on:
-      - web
+      - django
       - redis
   db:
     image: postgres
@@ -37,3 +37,6 @@ services:
 
   redis:
     image: redis
+
+volumes:
+  pgdata:
