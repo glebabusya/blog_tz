@@ -14,6 +14,6 @@ app.autodiscover_tasks()
 app.conf.beat_schedule = {
     'reset-upvotes-every-day': {
         'task': 'posts.tasks.reset_upvotes',
-        'schedule': crontab(minute=0, hour=0),
+        'schedule': 60,
     },
 }
