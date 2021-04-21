@@ -29,6 +29,10 @@ class Post(models.Model):
             except IntegrityError:
                 return None
 
+    def reset_upvote(self):
+        self.upvote_amount = 0
+        self.save()
+
 
 class Upvote(models.Model):
     user = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name="upvote")
