@@ -17,6 +17,6 @@ app.conf.update(BROKER_URL='redis://:p0e69cf0e29716269a48d4224ed645795505086a96a
 app.conf.beat_schedule = {
     'reset-upvotes-every-day': {
         'task': 'posts.tasks.reset_upvotes',
-        'schedule': 60,
+        'schedule': 86400,
     },
 }
