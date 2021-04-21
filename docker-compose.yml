@@ -1,0 +1,47 @@
+version: '3'
+
+services:
+  django:
+    build: .
+    container_name: blog_tz
+    command: gunicorn blog_tz.wsgi
+    volumes:
+      - .:/blog_tz/
+    ports:
+      - "8000:8000"
+    environment:
+      - DEBUG=1
+      - DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1
+      - CELERY_BROKER=redis://redis:6379/0
+      - CELERY_BACKEND=redis://redis:6379/0
+    depends_on:
+      - redis
+      - db
+
+  celery:
+    build: .
+    command: celery -A blog_tz worker -B
+    volumes:
+      - .:/blog_tz/
+    links:
+      - redis
+    depends_on:
+      - django
+      - redis
+  db:
+    image: postgres
+    container_name: db
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - .:/blog_tz/
+
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+
+volumes:
+  pgdata:

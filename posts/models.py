@@ -36,12 +36,3 @@ class Upvote(models.Model):
 
     class Meta:
         unique_together = ("user", "post")
-
-
-class DeleteUpvote(models.Model):
-    """
-    This model is needed to delete upvote every 24 hours.
-    This is a crutch, you need to use Celery...
-    """
-
-    time = models.DateTimeField()
