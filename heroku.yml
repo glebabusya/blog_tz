@@ -1,9 +1,9 @@
 
 build:
   docker:
-    django: Dockerfile
+    web: Dockerfile
 release:
-  image: django
+  image: web
   command:
     - django-admin makemigrations --noinput
     - django-admin migrate --noinput

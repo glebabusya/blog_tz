@@ -12,5 +12,5 @@ COPY . .
 
 RUN python manage.py collectstatic --noinput --clear
 
-CMD python3 manage.py runserver 0.0.0.0:$PORT
+CMD gunicorn blog_tz.wsgi
 
