@@ -4,24 +4,21 @@ services:
   django:
     build: .
     container_name: blog_tz
-    command: gunicorn blog_tz.wsgi
+    command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/blog_tz/
     ports:
       - "8000:8000"
-    environment:
-      - DEBUG=1
     depends_on:
       - redis
       - db
 
   celery:
+    restart: always
     build: .
-    command: celery -A blog_tz worker -B
+    command: celery -A blog_tz worker -l INFO --pool=solo
     volumes:
       - .:/blog_tz/
-    links:
-      - redis
     depends_on:
       - django
       - redis

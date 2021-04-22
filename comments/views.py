@@ -1,3 +1,4 @@
+from django.shortcuts import redirect
 from rest_framework import status
 from rest_framework.generics import (
     ListAPIView,
@@ -41,4 +42,4 @@ class CommentCreateAPIView(CreateAPIView):
             content=data["content"], author=request.user, post=data["post"]
         )
         comment.save()
-        return Response(status=status.HTTP_201_CREATED)
+        return redirect('comment_detail', comment.pk)
