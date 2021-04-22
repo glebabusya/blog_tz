@@ -10,4 +10,4 @@ def reset_upvotes():
     for post in posts:
         post.reset_upvote()
 
-    return 'Upvote Deleted'
+    return "Upvote Deleted"

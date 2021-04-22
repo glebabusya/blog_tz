@@ -42,4 +42,4 @@ class CommentCreateAPIView(CreateAPIView):
             content=data["content"], author=request.user, post=data["post"]
         )
         comment.save()
-        return redirect('comment_detail', comment.pk)
+        return redirect("comment_detail", comment.pk)

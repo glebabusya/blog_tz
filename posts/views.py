@@ -28,7 +28,7 @@ class PostListAPIView(ListCreateAPIView):
             title=data["title"], content=data["content"], author=request.user
         )
         post.save()
-        return redirect('post_detail', post.pk)
+        return redirect("post_detail", post.pk)
 
 
 class PostDetailAPIView(RetrieveUpdateDestroyAPIView):

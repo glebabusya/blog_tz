@@ -21,12 +21,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY', default='foo')
+SECRET_KEY = os.environ.get("SECRET_KEY", default="foo")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ["*"]
 
 # Application definition
 
@@ -78,7 +78,11 @@ WSGI_APPLICATION = "blog_tz.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {'default': dj_database_url.config(default='postgres://yyqqupxyervsgh:d9bf2297c5f79cd223acada58dc49a611bd3f027220f1227833e06e7b7374593@ec2-54-72-155-238.eu-west-1.compute.amazonaws.com:5432/d71jmm9kb7mp9b')}
+DATABASES = {
+    "default": dj_database_url.config(
+        default="postgres://yyqqupxyervsgh:d9bf2297c5f79cd223acada58dc49a611bd3f027220f1227833e06e7b7374593@ec2-54-72-155-238.eu-west-1.compute.amazonaws.com:5432/d71jmm9kb7mp9b"
+    )
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -114,13 +118,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_DIRS = (os.path.join('static'),)
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATIC_URL = "/static/"
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+STATICFILES_DIRS = (os.path.join("static"),)
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = 'media'
+MEDIA_URL = "/media/"
+MEDIA_ROOT = "media"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -131,8 +135,8 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 CELERY_TIMEZONE = "Europe/Minsk"
 CELERY_TASK_TRACK_STARTED = True
 CELERY_TASK_TIME_LIMIT = 30 * 60
-REDIS_HOST = 'localhost'
-REDIS_PORT = '6379'
-BROKER_TRANSPORT_OPTIONS = {'visibility_timeout': 3600}
+REDIS_HOST = "localhost"
+REDIS_PORT = "6379"
+BROKER_TRANSPORT_OPTIONS = {"visibility_timeout": 3600}
 # Activate Django-heroku
 django_heroku.settings(locals())
