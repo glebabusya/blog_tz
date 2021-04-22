@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get("SECRET_KEY", default="foo")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = int(os.environ.get('DEBUG', 0))
 
 ALLOWED_HOSTS = ["*"]
 
@@ -79,10 +79,18 @@ WSGI_APPLICATION = "blog_tz.wsgi.application"
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-    "default": dj_database_url.config(
-        default="postgres://yyqqupxyervsgh:d9bf2297c5f79cd223acada58dc49a611bd3f027220f1227833e06e7b7374593@ec2-54-72-155-238.eu-west-1.compute.amazonaws.com:5432/d71jmm9kb7mp9b"
-    )
+    "default": {
+        "ENGINE": os.environ.get("SQL_ENGINE", "django.db.backends.sqlite3"),
+        "NAME": os.environ.get("SQL_DATABASE", os.path.join(BASE_DIR, "db.sqlite3")),
+        "USER": os.environ.get("SQL_USER", ""),
+        "PASSWORD": os.environ.get("SQL_PASSWORD", ""),
+        "HOST": os.environ.get("SQL_HOST", ""),
+        "PORT": os.environ.get("SQL_PORT", ""),
+    }
 }
+
+if "DATABASE_URL" in os.environ:
+    DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
