@@ -1,4 +1,4 @@
-Blog post on Heroku:
+Deployed on Heroku:
 https://drftzblog.herokuapp.com/  <br>
 urls: <br>
     - posts/ list of all posts + create post<br>
@@ -10,11 +10,8 @@ urls: <br>
 
 Instruction: <br>
 -docker-compose build<br>
--docker-compose run python manage.py makemigrations<br>
--docker-compose run python manage.py migrate<br>
--docker-compose run python manage.py createsuperuser<br>
 -docker-compose up <br>
--go to your browser and insert 'http://127.0.0.1:8000/' <br>
+-go to your browser and go to 'http://127.0.0.1:8000/' <br>
 
 
 <br>
