@@ -8,10 +8,16 @@ urls: <br>
     - comments/create  create comment <br>
     - comments/(id) read, update, delete operations <br>
 
-Instruction: <br>
+Getting-started: <br>
+-git clone https://github.com/glebabusya/blog_tz blog_tz<br>
+-cd blog_tz<br>
+-mkdir static<br>
 -docker-compose build<br>
 -docker-compose up <br>
 -go to your browser and go to 'http://127.0.0.1:8000/' <br>
+<br>
+to create user:
+-docker-compose run django python manage.py createsuperuser<br>
 
 
 <br>
