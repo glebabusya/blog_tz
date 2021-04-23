@@ -1,5 +1,5 @@
 # Blog post on Heroku:
-## https://drftzblog.herokuapp.com/ <br>
+## https://drftzblog.herokuapp.com/posts <br>
 urls: <br>
 - posts/ list of all posts + create post<br>
 - posts/(id) post read, update, delete operations <br>
