@@ -63,7 +63,7 @@ ROOT_URLCONF = "blog_tz.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [os.path.join(BASE_DIR, 'staticfiles')],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -134,7 +134,8 @@ STATIC_URL = '/static/'
 
 # Extra places for collectstatic to find static files.
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'build/static'),
+    os.path.join(BASE_DIR, 'build')
 ]
 
 STATICFILES_STORAGE = 'backend.storage.WhiteNoiseStaticFilesStorage'
