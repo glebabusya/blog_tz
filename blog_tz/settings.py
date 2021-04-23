@@ -129,7 +129,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STATIC_URL = '/static/'
 
@@ -156,7 +156,7 @@ REDIS_HOST = "localhost"
 REDIS_PORT = "6379"
 BROKER_TRANSPORT_OPTIONS = {"visibility_timeout": 3600}
 # Activate Django-heroku
-django_heroku.settings(locals())
+django_heroku.settings(config=locals(), staticfiles=False)
 
 LOGGING = {
     'version': 1,
