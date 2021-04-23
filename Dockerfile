@@ -2,14 +2,14 @@ FROM python:3.7
 
 ENV PYTHONBUFFERED 1
 
-WORKDIR /blog_tz
+WORKDIR /usr/src/app
 
-COPY requirements.txt ./
+COPY requirements.txt .
+COPY entrypoint.sh .
 
 RUN pip install -r requirements.txt
+RUN chmod +x entrypoint.sh
 
 COPY . .
 
-RUN python manage.py collectstatic --noinput --clear
-
-CMD python manage.py runserver 0.0.0.0:8000
+ENTRYPOINT ["/usr/src/app/entrypoint.sh"]

@@ -1,12 +1,13 @@
 version: '3'
 
 services:
-  django:
-    build: .
-    container_name: blog_tz
+  web:
+    build:
+      context: ./
+      dockerfile: Dockerfile
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
-      - .:/blog_tz/
+      - ./:/usr/src/app
     ports:
       - "8000:8000"
     depends_on:
@@ -18,9 +19,9 @@ services:
     build: .
     command: celery -A blog_tz worker -l INFO --pool=solo
     volumes:
-      - .:/blog_tz/
+      - ./:/usr/src/app
     depends_on:
-      - django
+      - web
       - redis
   db:
     image: postgres
@@ -30,7 +31,7 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
     volumes:
-      - .:/blog_tz/
+      - ./:/usr/src/app
 
   redis:
     image: redis
