@@ -1,9 +1,10 @@
 
 build:
   docker:
-    django: Dockerfile
+    web: Dockerfile
+run:
+  web: gunicorn backend.config.wsgi
 release:
-  image: django
+  image: web
   command:
-    - django-admin makemigrations --noinput
-    - django-admin migrate --noinput
+    - python manage.py collectstatic --noinput
