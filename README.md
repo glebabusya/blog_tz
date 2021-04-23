@@ -10,10 +10,12 @@ urls: <br>
 
 Instruction: <br>
 -git clone https://github.com/glebabusya/blog_tz blog_tz<br>
--cd blog_tz
+-cd blog_tz <br>
 -docker-compose build<br>
 -docker-compose up <br>
--go to your browser and insert 'http://127.0.0.1:8000/' <br>
+<br>
+local urls = [127.0.0.1, localhost]<br>
+<br>
 
 To create user: <br>
 open other terminal and past:
