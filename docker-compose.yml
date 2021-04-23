@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  django:
+  web:
     build: .
     container_name: blog_tz
     command: python manage.py runserver 0.0.0.0:8000
@@ -20,7 +20,7 @@ services:
     volumes:
       - .:/blog_tz/
     depends_on:
-      - django
+      - web
       - redis
   db:
     image: postgres
